@@ -85,6 +85,13 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'A Test Article',
+    date: 'December 4, 2019',
+    firstParagraph: 'This is the first test paragraph.',
+    secondParagraph: 'This is the second test paragraph.',
+    thirdParagraph: 'This is the third test paragraph.'
   }
 ];
 
@@ -112,3 +119,53 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+//create the function
+function createComponent(article){
+  //declare variables
+  const articleMain = document.createElement("div");
+  const title = document.createElement("h2");
+  const date = document.createElement("p");
+  const firstP = document.createElement("p");
+  const secondP = document.createElement("p");
+  const thirdP = document.createElement("p");
+  const button = document.createElement("span");
+
+  //assign classes to any elements
+  articleMain.classList.add("article");
+  date.classList.add("date");
+  button.classList.add("expandButton");
+
+  //append any child elements to parent elements
+  articleMain.appendChild(title);
+  articleMain.appendChild(date);
+  articleMain.appendChild(firstP);
+  articleMain.appendChild(secondP);
+  articleMain.appendChild(thirdP);
+  articleMain.appendChild(button);
+
+  //give elements any text content from the objects parameters
+  title.textContent = article.title;
+  date.textContent = article.date;
+  firstP.textContent = article.firstParagraph;
+  secondP.textContent = article.secondParagraph;
+  thirdP.textContent = article.thirdParagraph;
+
+  //give the button an event
+  //NOTE: if adding the event listener and handler to the entire div with the class "article" (in this case the "articleMain" variable), clicking the div will toggle the article paragraphs.
+  //if we want to use a "button" to toggle the article paragraphs, just uncomment the "button.addEventListener" line and comment out the "articleMain.addEventListener" line
+  //if using the button to toggle the article paragraphs, uncomment the line below so the text represents the button. NOT STYLIZED!
+  // button.textContent = "click here to expand/close article";
+  // button.addEventListener("click", event => {
+    articleMain.addEventListener("click", event => {
+    articleMain.classList.toggle("article-open");
+  })
+
+  //return the main parent which has all the child elements appended
+  return articleMain;
+}
+
+//use forEach on the data array to append each item's data (in the array) to the "articles" class in the HTML
+data.forEach(item => {
+  document.querySelector(".articles").appendChild(createComponent(item));
+})
