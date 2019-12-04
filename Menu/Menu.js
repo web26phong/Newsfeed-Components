@@ -6,7 +6,8 @@ let menuItems = [
   "What's New",
   'Tech Trends',
   'Music',
-  'Log Out'
+  'Log Out',
+  "New Menu Item"
 ];
 
 /* 
@@ -33,3 +34,36 @@ let menuItems = [
   Step 6: add the menu component to the DOM.
   
 */
+
+//create the function that makes the menu
+function createMenu(links){
+  //declare variables
+  const menuMain = document.createElement("div");
+  const listMain = document.createElement("ul");
+
+  //add classes
+  menuMain.classList.add("menu");
+
+  //add each item in the argument array (the array passed into the createMenu function) as a list item in the unordered list
+  links.forEach(item => {
+    const menuItem = document.createElement("li");
+    menuItem.textContent = item;
+    listMain.appendChild(menuItem);
+  })
+
+  //add an event listener and handler to the image with the class "menu-button"
+  //toggles the class "menu--open" in the div with the class "menu" (menuMain in this case has the "menu" class)
+  document.querySelector(".menu-button").addEventListener("click", event => {
+    menuMain.classList.toggle("menu--open");
+  })
+
+  //append the unordered list containing all the list items (from the array) to the div with the class "menu"
+  menuMain.appendChild(listMain);
+
+  //return the entire menu
+  return menuMain;
+
+}
+
+//call the createMenu function, pass it the menuItems array, and append that list to the div with the class of "header"
+document.querySelector(".header").appendChild(createMenu(menuItems));
